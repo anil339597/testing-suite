@@ -5,6 +5,12 @@
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
     <description>PHPCS</description>
-    <!--<exclude-pattern>path/to/exclude/*</exclude-pattern>-->
-    <rule ref="YouweMagento2"/>
+
+    <!--<exclude-pattern type="relative">^/path/to/exclude/*</exclude-pattern>-->
+
+    <!-- @TODO: Offload to separate coding-standard-pimcore package, and add common pimcore conventions there -->
+    <rule ref="Youwe"/>
+
+    <!-- Append arg -s to phpcs to display the name of failed sniffs -->
+    <arg value="s"/>
 </ruleset>

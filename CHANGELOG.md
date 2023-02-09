@@ -4,6 +4,59 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.16.1
+### Changed
+- Git blacklist now matches on words instead of characters by default.
+- The git blacklist configuration for rejecting accidentally commited merge conflicts now properly reflects the
+full set of characters used by git.
+
+### Fixed
+- Resolved issue where the updated git blacklist configuration would provide a false positive result
+on functions ending with `add()` or `odd()` due to checks on dump and die `dd()` statements.
+
+### Added
+- Git blacklist now checks for `exit()` usage.
+
+## 2.16.0
+### Fixed
+- Testing suite no longer breaks during installation when composer project type is set to `pimcore-project`.
+
+### Added
+- `phpcs.xml`, `phpmd.xml` and `phpstan.neon` files are now automatically installed in a local `pimcore-project` if they don't exist yet.
+
+## 2.15.0
+### Added
+- Project type resolver can now look for pimcore projects.
+  - Pimcore projects have their own [git blacklist](docs/components/git-blacklist.md) configuration.
+  - In the future, the pimcore coding standard will have its own package for `phpcs.xml` and `phpmd.xml` rulesets.
+- `grumphp.yml` file for `pimcore` projects.
+  - This file falls back on the default configuration and inherits all properties, except for the blacklist triggers. 
+- [Git blacklist](docs/components/git-blacklist.md) documentation.
+
+### Changed
+- The magento2 `grumphp.yml` file is split off from the default configuration.
+  - The `grumphp.yml` that's part of a project will automatically point to the new magento2-specific config file.
+  - The new file falls back on the default configuration, and overrides the git blacklist keywords and triggers.
+  - The magento specific constructs are also removed from the default `grumphp.yml` template.
+- The default `phpcs.xml` file now references a relative ruleset instead of an absolute path.
+
+## 2.14.0
+### Added
+- New pathing for `phpcs.xml` file.
+- Added updated code styling for project type `Magento2`.
+- Support for `phtml` in project type `Magento2`. 
+  The phtml files will only be checked based on Magento2 code standards.
+
+### Changed
+- Project type `default`/`magento` use correct index replaced `excludes_analyse` with `excludePaths` for `phpstan.neon` file.
+- Project type `default` use correct tags for `phpunit_dist.xml`.
+- Updated dependency to `youwe/composer-dependency-installer`
+
+### Changed
+- Phpcs will now also check files `phtml`. If not preferred behaviour overwrite
+  parameter `phpcs.triggered_by` in `grumphp.yml` and change back to `[php]`.
+- `.eslintrc.json` which was updated coherent to Fisheye configurations.
+
 ## 2.13.1 - 2022-08-03
 ### Fixed
 - Github actions are now actually executed.
